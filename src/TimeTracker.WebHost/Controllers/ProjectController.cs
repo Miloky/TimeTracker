@@ -10,7 +10,7 @@ namespace TimeTracker.WebHost.Controllers
     public class ProjectController : BaseController
     {
         [HttpPost]
-        [Route("create-project")]
+        [Route("new")]
         public async Task<IActionResult> CreateProject([FromBody] CreateProjectCommand command)
         {
             var result = await Mediator.Send(command);
@@ -18,7 +18,7 @@ namespace TimeTracker.WebHost.Controllers
         }
 
         [HttpPost]
-        [Route("project-list")]
+        [Route("list")]
         public async Task<IActionResult> GetProjectList()
         {
             var result = await Mediator.Send(new GetProjectListQuery());
