@@ -13,6 +13,7 @@ namespace TimeTracker.WebHost.Controllers
         [Route("new")]
         public async Task<IActionResult> CreateProject([FromBody] CreateProjectCommand command)
         {
+            // TODO: Fluent Validator
             var result = await Mediator.Send(command);
             return Ok(new { id = result });
         }
@@ -21,6 +22,8 @@ namespace TimeTracker.WebHost.Controllers
         [Route("list")]
         public async Task<IActionResult> GetProjectList()
         {
+            // TODO: Add SmartListParams
+            // TODO: Fluent Validator
             var result = await Mediator.Send(new GetProjectListQuery());
             return Ok(result);
         }
