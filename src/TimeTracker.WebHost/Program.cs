@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TimeTracker.Application.Interfaces;
 using TimeTracker.Persistence;
+using TimeTracker.Persistence.Initializer;
 
 namespace TimeTracker.WebHost
 {
@@ -23,8 +24,10 @@ namespace TimeTracker.WebHost
                     TimeTrackerDbContext context = (TimeTrackerDbContext)abstractContext;
                     context.Database.Migrate();
 
-
-                    throw new Exception("Test");
+                    IHostingEnvironment environment = scope.ServiceProvider.GetService<IHostingEnvironment>();
+                    if(environment.IsDevelopment()){
+                        TimeTrackerDbInitializer.Seed(context);
+                    }
                 }
                 catch (Exception e)
                 {
