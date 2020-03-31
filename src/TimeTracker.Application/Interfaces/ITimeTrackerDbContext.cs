@@ -7,6 +7,7 @@ namespace TimeTracker.Application.Interfaces
 {
     public interface ITimeTrackerDbContext
     {
+        DbSet<Issue> Issues { get; set; }
         DbSet<Project> Projects { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
