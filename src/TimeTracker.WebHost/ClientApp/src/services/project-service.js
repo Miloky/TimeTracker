@@ -4,14 +4,14 @@ export class ProjectService {
   static fetchProjectsAsync() {
     return axios({
       method: 'POST',
-      url: '/api/projects/project-list'
+      url: '/api/projects/list'
     });
   }
 
   static createProjectAsync(data) {
     return axios({
       method: 'POST',
-      url: '/api/projects/create-project',
+      url: '/api/projects/new',
       data
     });
   }
