@@ -10,7 +10,7 @@ namespace TimeTracker.Persistence
         public TimeTrackerDbContext(DbContextOptions<TimeTrackerDbContext> options) : base(options) { }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Issue> Issues { get; set; }
-
+        public DbSet<WorkLog> WorkLogs { get; set; }       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProjectConfiguration).Assembly);
