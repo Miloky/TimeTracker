@@ -11,7 +11,7 @@ namespace TimeTracker.Persistence.Configurations
             builder.ToTable("Issues");
 
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
 
             builder.HasOne(x => x.Project).WithMany(x => x.Issues);
             builder.HasMany(x => x.WorkLogs).WithOne(x => x.Issue);

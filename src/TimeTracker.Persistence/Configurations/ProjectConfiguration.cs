@@ -9,9 +9,8 @@ namespace TimeTracker.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Project> builder)
         {
             builder.HasKey(x => x.Id);
-
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(200);
-
+            builder.Property(x => x.Title).IsRequired().HasMaxLength(200);
+            builder.Property(x => x.Prefix).IsRequired().HasMaxLength(4);
             builder.HasMany(x => x.Issues).WithOne(x => x.Project);
         }
     }
