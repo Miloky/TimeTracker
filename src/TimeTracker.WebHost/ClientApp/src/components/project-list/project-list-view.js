@@ -2,6 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { ProjectService } from '../../services/project-service';
 import { Link } from 'react-router-dom';
 
+import Project from '../project';
+import classes from './project-list.module.scss';
+
+
 export default class ProjectList extends Component {
     constructor(props) {
         super(props);
@@ -28,10 +32,12 @@ export default class ProjectList extends Component {
             {
                 this.state.loading ? <div>Loading...</div> : null
             }
-            {
-                this.state.projects.length && !this.state.loading ? this.state.projects
-                    .map(project => <Link to='/project-details'><div>Project Name:</div><div>{project.name}</div></Link>) : null
-            }
+            <div className={classes.project_list}>
+                {
+                    this.state.projects.length && !this.state.loading ? this.state.projects
+                        .map(project => <Project key={project.id} project={project} />) : null
+                }
+            </div>
         </Fragment>
     }
 }
