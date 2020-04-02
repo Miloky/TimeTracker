@@ -16,7 +16,7 @@ namespace TimeTracker.Application.Projects.Commands.CreateProject
         {
             var result = await _context.Projects.AddAsync(new Project
             {
-                Name = request.Name
+                Title = request.Name
             }, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
