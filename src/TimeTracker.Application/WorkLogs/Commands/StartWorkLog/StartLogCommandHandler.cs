@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -8,7 +9,7 @@ using TimeTracker.Domain.Entities;
 
 namespace TimeTracker.Application.WorkLogs.Commands.StartWorkLog
 {
-    public class StartLogCommandHandler:IRequestHandler<StartLogCommand, StartLogResult>
+    public class StartLogCommandHandler : IRequestHandler<StartLogCommand, StartLogResult>
     {
         private readonly ITimeTrackerDbContext _context;
 
@@ -19,27 +20,31 @@ namespace TimeTracker.Application.WorkLogs.Commands.StartWorkLog
 
         public async Task<StartLogResult> Handle(StartLogCommand request, CancellationToken cancellationToken)
         {
-           WorkLog activeWorkLog =  await _context.WorkLogs.FirstOrDefaultAsync(x => x.IssueId == request.Id && x.EndDate == null,
-                cancellationToken);
+            // TODO: Throw error if null
+            Issue issue = await _context.Issues.FirstOrDefaultAsync(x => x.Identifier == request.Identifier,cancellationToken);
+            var workLog = await _context.WorkLogs.FirstOrDefaultAsync(x => x.IssueId == issue.Id&&x.EndDate==null,cancellationToken);
+
+
 
             // TODO: Check if  activeWorkLog exist and throw error
-            if (activeWorkLog != null)
+            if (workLog!=null)
             {
-                throw  new InvalidOperationException("Stop previous time logging.");
+                throw new InvalidOperationException("Stop previous time logging.");
             }
 
-            WorkLog workLog = new WorkLog
+            WorkLog log = new WorkLog
             {
-                IssueId = request.Id,
+                IssueId = issue.Id,
                 StartDate = request.Start,
             };
 
-            await _context.WorkLogs.AddAsync(workLog, cancellationToken);
+            await _context.WorkLogs.AddAsync(log, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             return new StartLogResult
             {
-                Id = workLog.Id,
-                StartDate = workLog.StartDate
+                Id = log.Id,
+                Start = log.StartDate,
+                Identifier = issue.Identifier
             };
         }
     }
