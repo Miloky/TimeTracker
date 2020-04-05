@@ -5,7 +5,7 @@ using TimeTracker.Application.Projects.Commands.CreateProject;
 using TimeTracker.WebHost.FunctionalTest.Common;
 using Xunit;
 
-namespace TimeTracker.WebHost.FunctionalTest.Controllers.Project
+namespace TimeTracker.WebHost.FunctionalTests.Controllers.Project
 {
     public class Create : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
@@ -15,7 +15,7 @@ namespace TimeTracker.WebHost.FunctionalTest.Controllers.Project
         {
             _httClient = factory.CreateClient();
         }
-
+            
         [Fact]
         public async Task GivenCreateProjectCommand_ReturnsNewProjectId()
         {
@@ -31,7 +31,7 @@ namespace TimeTracker.WebHost.FunctionalTest.Controllers.Project
             var projectId = responseObject.Value<int>("id");
             Assert.Single(responseObject);
             Assert.NotEqual(0, projectId);
-            Assert.Equal(3, projectId);
-        }
+            Assert.Equal(4, projectId);
+        }       
     }
 }
