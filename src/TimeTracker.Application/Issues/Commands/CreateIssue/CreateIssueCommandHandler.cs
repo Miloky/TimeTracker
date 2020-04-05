@@ -28,12 +28,12 @@ namespace TimeTracker.Application.Issues.Commands.CreateIssue
            {
                Project = project,
                Title = request.Title,
-               // TODO: Add auto numbering
-               Identifier = $"{project.Prefix}-222"
            };
 
+           //_context.Issues.AddAsync()
 
            await _context.Issues.AddAsync(issue, cancellationToken);
+           issue.Identifier = $"{project.Prefix}-{issue.Id}";
            await _context.SaveChangesAsync(cancellationToken);
 
            return issue.Identifier;
