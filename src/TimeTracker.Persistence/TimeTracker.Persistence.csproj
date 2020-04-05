@@ -18,10 +18,4 @@
     <ProjectReference Include="..\TimeTracker.Application\TimeTracker.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Initializer\projects.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
