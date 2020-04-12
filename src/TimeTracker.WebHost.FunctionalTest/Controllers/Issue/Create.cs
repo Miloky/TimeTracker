@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
 using TimeTracker.Application.Issues.Commands.CreateIssue;
 using TimeTracker.WebHost.FunctionalTest.Common;
 using Xunit;
