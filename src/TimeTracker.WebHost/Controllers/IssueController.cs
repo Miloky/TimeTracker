@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using TimeTracker.Application.Issues.Commands.CreateIssue;
 using TimeTracker.Application.Issues.Queries.IssueList;
 using TimeTracker.Application.WorkLogs.Commands.StartWorkLog;
+using TimeTracker.Application.WorkLogs.Commands.StopWorkLog;
 
 namespace TimeTracker.WebHost.Controllers
 {
@@ -30,9 +31,10 @@ namespace TimeTracker.WebHost.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> StopLog()
+        public async Task<IActionResult> StopLog(StopLogCommand command)
         {
-            return Ok();
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
     }
 }
