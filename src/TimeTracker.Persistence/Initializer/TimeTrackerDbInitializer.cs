@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,39 +10,60 @@ namespace TimeTracker.Persistence.Initializer
     public class TimeTrackerDbInitializer
     {
         private readonly IDictionary<int, Project> _projects = new Dictionary<int, Project>();
+        private readonly IDictionary<int, Issue> _issues = new Dictionary<int, Issue>();
 
         public static void Seed(TimeTrackerDbContext context)
         {
             if (context.Projects.FirstOrDefault() != null) return;
-            var initilizer = new TimeTrackerDbInitializer();
-            initilizer.SeedEverything(context);
+            var initializer = new TimeTrackerDbInitializer();
+            initializer.SeedEverything(context);
         }
 
         private void SeedEverything(TimeTrackerDbContext context)
         {
             SeedProjects(context);
             SeedIssues(context);
+            SeedWorkLogs(context);
+        }
+
+        private void SeedWorkLogs(TimeTrackerDbContext context)
+        {
+            var start = DateTime.Now;
+            var end = DateTime.Now.AddHours(5);
+            var woklogs = new WorkLog[]
+            {
+                new WorkLog
+                {
+                    Issue = _issues[2],
+                    EndDate = end,
+                    StartDate = start,
+                    Duration = (end-start).Minutes
+                },
+                new WorkLog
+                {
+                    Issue = _issues[2],
+                    StartDate = DateTime.Parse("04/05/2020 20:00:00")
+                }
+            };
         }
 
         private void SeedIssues(TimeTrackerDbContext context)
         {
-            var issues = new Issue[]
+            _issues.Add(1, new Issue
             {
-                new Issue
-                {
-                    Title = "Harry Potter and philosopher's stone"
-                },
-                new Issue
-                {
-                    Title = "Harry Potter and philosopher's stone",
-                }
-            };
-
-            context.Issues.AddRange(issues);
-
-            foreach (Issue issue in issues)
+                Title = "Harry Potter and philosopher's stone",
+                Project = _projects[1]
+            });
+            _issues.Add(2, new Issue
             {
-                issue.Project = _projects[1];
+                Title = "JavaScript Promises",
+                Project = _projects[2]
+            });
+
+
+            foreach (Issue issue in _issues.Values)
+            {
+                context.Issues.Add(issue);
                 issue.Identifier = $"{issue.Project.Prefix}-{issue.Id}";
             }
 
