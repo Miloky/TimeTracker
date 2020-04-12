@@ -18,16 +18,16 @@ namespace TimeTracker.Application.WorkLogs.Commands.StopWorkLog
 
         public async Task<StopLogCommandResult> Handle(StopLogCommand request, CancellationToken cancellationToken)
         {
-            var activeWorkLog = await _context.WorkLogs.FirstOrDefaultAsync(x => x.EndDate == null && x.IssueId == request.Id, cancellationToken);
+            var issue = await _context.Issues.FirstOrDefaultAsync(x => x.Identifier == request.Identifier);
+            var activeWorkLog = await _context.WorkLogs.FirstOrDefaultAsync(x => x.EndDate == null && x.IssueId==issue.Id, cancellationToken);
             if (activeWorkLog == null)
             {
                 throw new InvalidOperationException("There is no active logging");
             }
 
 
-            var now = DateTime.Now;
-            var diff = now - activeWorkLog.StartDate;
-            activeWorkLog.EndDate = now;
+            var diff = request.End - activeWorkLog.StartDate;
+            activeWorkLog.EndDate = request.End;
             activeWorkLog.Duration = diff.Minutes;
 
 
