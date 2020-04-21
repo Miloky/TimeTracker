@@ -21,7 +21,18 @@ namespace TimeTracker.Application.Issues.Queries.IssueList
 
         public async Task<IssueListQueryResult> Handle(IssueListQuery request, CancellationToken cancellationToken)
         {
-            IList<Issue> issues = await _context.Issues.Where(x => x.Project.Prefix == request.Prefix).ToListAsync(cancellationToken);
+            IList<IssueViewModel> issues = await _context.Issues.Include(x=>x.WorkLogs).Where(x => x.Project.Prefix == request.Prefix).Select(issue =>new IssueViewModel
+            {
+                Identifier = issue.Identifier,
+                Title = issue.Title,
+                Worklogs = issue.WorkLogs.Select(x=>new WorklogViewModel
+                {
+                    Id = x.Id,
+                    End = x.EndDate,
+                    Duration = x.Duration,
+                    Start = x.StartDate
+                }).ToList()
+            }).ToListAsync(cancellationToken);
             return new IssueListQueryResult
             {
                 Issues = issues
