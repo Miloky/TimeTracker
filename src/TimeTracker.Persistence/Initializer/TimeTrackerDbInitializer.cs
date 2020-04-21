@@ -29,15 +29,15 @@ namespace TimeTracker.Persistence.Initializer
         private void SeedWorkLogs(TimeTrackerDbContext context)
         {
             var start = DateTime.Now;
-            var end = DateTime.Now.AddHours(5);
-            var woklogs = new WorkLog[]
+            var end = start.AddHours(5);
+            var worklogs = new WorkLog[]
             {
                 new WorkLog
                 {
                     Issue = _issues[2],
                     EndDate = end,
                     StartDate = start,
-                    Duration = (end-start).Minutes
+                    Duration = Convert.ToInt32((end-start).TotalMinutes)
                 },
                 new WorkLog
                 {
@@ -45,6 +45,8 @@ namespace TimeTracker.Persistence.Initializer
                     StartDate = DateTime.Parse("04/05/2020 20:00:00")
                 }
             };
+            context.WorkLogs.AddRange(worklogs);
+            context.SaveChanges();
         }
 
         private void SeedIssues(TimeTrackerDbContext context)
