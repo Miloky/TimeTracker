@@ -4,6 +4,7 @@ import RootPage from './root';
 import CreateProjectPage from './create-project';
 import Issues from './issues';
 import CreateIssue from '../components/create-issue';
+import IssueDetails from './issue-details';
 
 
 // TODO: add use history
@@ -18,6 +19,9 @@ export default function Pages() {
             </Route>
             <Route path='/create-project' exact>
                 <CreateProjectPage />
+            </Route>
+            <Route path='/browse/:key'>
+                <IssueDetails />
             </Route>
             <Route path='/create-issue' exact>
                 <CreateIssue />
