@@ -45,7 +45,7 @@ namespace TimeTracker.WebHost.FunctionalTests.Controllers.Worklog
             // Arrange
             var start = DateTime.Parse("04/05/2020 20:00:00");
             var end = DateTime.Parse("04/05/2020 23:00:00");
-            var duration = (end - start).Minutes;
+            var duration = (end - start).TotalMinutes;
             var command = new StopLogCommand
             {
                 Identifier = "JS-2",

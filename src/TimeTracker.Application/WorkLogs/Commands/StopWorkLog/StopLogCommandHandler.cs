@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -7,7 +8,7 @@ using TimeTracker.Application.Interfaces;
 
 namespace TimeTracker.Application.WorkLogs.Commands.StopWorkLog
 {
-    public class StopLogCommandHandler:IRequestHandler<StopLogCommand,StopLogCommandResult>
+    public class StopLogCommandHandler : IRequestHandler<StopLogCommand, StopLogCommandResult>
     {
         private readonly ITimeTrackerDbContext _context;
 
@@ -18,8 +19,10 @@ namespace TimeTracker.Application.WorkLogs.Commands.StopWorkLog
 
         public async Task<StopLogCommandResult> Handle(StopLogCommand request, CancellationToken cancellationToken)
         {
-            var issue = await _context.Issues.FirstOrDefaultAsync(x => x.Identifier == request.Identifier);
-            var activeWorkLog = await _context.WorkLogs.FirstOrDefaultAsync(x => x.EndDate == null && x.IssueId==issue.Id, cancellationToken);
+            var issue = await _context.Issues.FirstOrDefaultAsync(x => x.Identifier == request.Identifier, cancellationToken);
+            var activeWorkLog =
+                await _context.WorkLogs.FirstOrDefaultAsync(x => x.IssueId == issue.Id && x.EndDate == null,
+                    cancellationToken);
             if (activeWorkLog == null)
             {
                 throw new InvalidOperationException("There is no active logging");
@@ -28,7 +31,7 @@ namespace TimeTracker.Application.WorkLogs.Commands.StopWorkLog
 
             var diff = request.End - activeWorkLog.StartDate;
             activeWorkLog.EndDate = request.End;
-            activeWorkLog.Duration = diff.Minutes;
+            activeWorkLog.Duration = Convert.ToInt32(diff.TotalMinutes);
 
 
             await _context.SaveChangesAsync(cancellationToken);
@@ -37,7 +40,7 @@ namespace TimeTracker.Application.WorkLogs.Commands.StopWorkLog
             {
                 Duration = activeWorkLog.Duration,
                 Start = activeWorkLog.StartDate,
-                End = activeWorkLog.EndDate
+                End = activeWorkLog.EndDate.Value
             };
         }
     }
