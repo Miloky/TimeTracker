@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TimeTracker.Application.Issues.Commands.CreateIssue;
+using TimeTracker.Application.Issues.Queries.IssueDetails;
 using TimeTracker.Application.Issues.Queries.IssueList;
 using TimeTracker.Application.WorkLogs.Commands.StartWorkLog;
 using TimeTracker.Application.WorkLogs.Commands.StopWorkLog;
@@ -18,6 +19,13 @@ namespace TimeTracker.WebHost.Controllers
 
         [HttpPost]
         public async Task<IActionResult> List(IssueListQuery query)
+        {
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Details(IssueDetailsQuery query)
         {
             var result = await Mediator.Send(query);
             return Ok(result);
