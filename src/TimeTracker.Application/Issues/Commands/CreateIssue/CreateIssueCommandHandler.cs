@@ -33,6 +33,7 @@ namespace TimeTracker.Application.Issues.Commands.CreateIssue
            //_context.Issues.AddAsync()
 
            await _context.Issues.AddAsync(issue, cancellationToken);
+           await _context.SaveChangesAsync(cancellationToken);
            issue.Identifier = $"{project.Prefix}-{issue.Id}";
            await _context.SaveChangesAsync(cancellationToken);
 
