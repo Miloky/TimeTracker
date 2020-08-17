@@ -48,8 +48,8 @@ namespace TimeTracker.WebHost
                     var environment = hostingContext.HostingEnvironment;
                     config
                         .AddJsonFile("appsettings.json", false)
-                        .AddJsonFile("appsettings.Local.json", true, true)
-                        .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true, true);
+                        .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", true, true)
+                        .AddJsonFile("appsettings.Local.json", true, true);
                     config.AddEnvironmentVariables();
                 })
                 .UseStartup<Startup>();
