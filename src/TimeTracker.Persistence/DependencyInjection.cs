@@ -10,7 +10,7 @@ namespace TimeTracker.Persistence
         public static IServiceCollection RegisterPersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ITimeTrackerDbContext, TimeTrackerDbContext>(options =>
-                options.UseMySQL(configuration.GetConnectionString("TimeTracker")));
+                options.UseMySql(configuration.GetConnectionString("TimeTracker")));
             return services;
         }
     }

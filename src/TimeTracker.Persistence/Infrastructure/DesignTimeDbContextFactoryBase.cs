@@ -45,7 +45,7 @@ namespace TimeTracker.Persistence.Infrastructure
             Console.WriteLine($"DesignTimeDbConnectionFactoryBase.Create(string): Connection string: '{connectionString}'.");
 
             DbContextOptionsBuilder<TContext> optionsBuilder = new DbContextOptionsBuilder<TContext>();
-            optionsBuilder.UseMySQL(connectionString);
+            optionsBuilder.UseMySql(connectionString);
 
             return CreateNewInstance(optionsBuilder.Options);
         }
