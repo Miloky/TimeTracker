@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using TimeTracker.Application.Interfaces;
 using TimeTracker.Persistence;
 using TimeTracker.Persistence.Initializer;
@@ -14,7 +15,7 @@ namespace TimeTracker.WebHost
     {
         public static void Main(string[] args)
         {
-            IWebHost host = CreateWebHostBuilder(args).Build();
+            var host = CreateWebHostBuilder(args).Build();
 
             using (IServiceScope scope = host.Services.CreateScope())
             {
@@ -24,7 +25,7 @@ namespace TimeTracker.WebHost
                     TimeTrackerDbContext context = (TimeTrackerDbContext)abstractContext;
                     context.Database.Migrate();
 
-                    IHostingEnvironment environment = scope.ServiceProvider.GetService<IHostingEnvironment>();
+                    IWebHostEnvironment environment = scope.ServiceProvider.GetService<IWebHostEnvironment>();
                     if(environment.IsDevelopment()){
                         TimeTrackerDbInitializer.Seed(context);
                     }
