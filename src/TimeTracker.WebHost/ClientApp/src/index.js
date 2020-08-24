@@ -65,39 +65,44 @@ const darkTheme = createMuiTheme({
   }
 });
 
+// <ThemeProvider theme={darkTheme}>
+// <CssBaseline>
+//   <AppBar  color='primary' />
+//   <Container style={{ paddingTop: '30px' }}>
+//     <Grid container spacing={2}>
+//       <Grid item md={4} sm={6} xs={12}>
+//         <Link to='/projects/create-project'>
+//           <Card style={{ height: '100%' }}>
+//             <CardActionArea style={{ height: '100%', display: 'flex' }}>
+//               <AddIcon style={{ paddingTop: '40px', paddingBottom: '40px', height: 'auto' }} />
+//             </CardActionArea>
+//           </Card>
+//         </Link>
+//       </Grid>
+//       <Grid item md={4} sm={6} xs={12}>
+//         <MediaCard />
+//       </Grid>
+//       <Grid item md={4} sm={6} xs={12}>
+//         <MediaCard />
+//       </Grid>
+//       <Grid item md={4} sm={6} xs={12}>
+//         <MediaCard />
+//       </Grid>
+//       <Grid item md={4} sm={6} xs={12}>
+//         <MediaCard />
+//       </Grid>
+//       <Grid item md={4} sm={6} xs={12}>
+//         <MediaCard />
+//       </Grid>
+//     </Grid>
+//   </Container>
+// </CssBaseline>
+// </ThemeProvider>
+
 ReactDOM.render(
   <ThemeProvider theme={darkTheme}>
-    <CssBaseline>
-      <AppBar />
-      <Container style={{ paddingTop: '30px' }}>
-        <Grid container spacing={2}>
-          <Grid item md={4} sm={6} xs={12}>
-            <Link to='/projects/create-project'>
-              <Card style={{ height: '100%' }}>
-                <CardActionArea style={{ height: '100%', display: 'flex' }}>
-                  <AddIcon style={{ paddingTop: '40px', paddingBottom: '40px', height: 'auto' }} />
-                </CardActionArea>
-              </Card>
-            </Link>
-          </Grid>
-          <Grid item md={4} sm={6} xs={12}>
-            <MediaCard />
-          </Grid>
-          <Grid item md={4} sm={6} xs={12}>
-            <MediaCard />
-          </Grid>
-          <Grid item md={4} sm={6} xs={12}>
-            <MediaCard />
-          </Grid>
-          <Grid item md={4} sm={6} xs={12}>
-            <MediaCard />
-          </Grid>
-          <Grid item md={4} sm={6} xs={12}>
-            <MediaCard />
-          </Grid>
-        </Grid>
-      </Container>
-    </CssBaseline>
+    <CssBaseline />
+    <Pages />
   </ThemeProvider>,
   document.getElementById('root')
 );

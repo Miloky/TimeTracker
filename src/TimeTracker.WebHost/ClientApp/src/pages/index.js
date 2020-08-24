@@ -5,12 +5,16 @@ import CreateProjectPage from './create-project';
 import Issues from './issues';
 import CreateIssue from '../components/create-issue';
 import IssueDetails from './issue-details';
+import SignIn from './sign_in';
 
 
 // TODO: add use history
 export default function Pages() {
     return <Router>
         <Switch>
+            <Route path='/sign_in' exact>
+                <SignIn />
+            </Route>
             <Route path='/' exact>
                 <RootPage />
             </Route>
