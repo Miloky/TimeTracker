@@ -10,6 +10,11 @@ const darkTheme = createMuiTheme({
   }
 });
 
+
+// TODO: Prettier config
+// TODO: ESLint config
+// TODO: scss lightner
+
 ReactDOM.render(
   <ThemeProvider theme={darkTheme}>
     <CssBaseline />
