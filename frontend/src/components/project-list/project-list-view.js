@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { ProjectService } from '../../services/project-service';
-import { Link } from 'react-router-dom';
 
 import Project from '../project';
 import classes from './project-list.module.scss';

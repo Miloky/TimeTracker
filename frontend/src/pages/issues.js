@@ -4,7 +4,6 @@ import { IssueService } from '../services/issue-service';
 import Header from '../components/header';
 import Countdown from '../components/countdown';
 
-import classnames from 'classnames';
 import { WorklogService } from '../services/worklog-service';
 
 class Issues extends Component {
