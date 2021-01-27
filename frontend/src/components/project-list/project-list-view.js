@@ -1,39 +1,35 @@
-import React, { Component, Fragment } from 'react';
+import { Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import { ProjectService } from '../../services/project-service';
 
 import Project from '../project';
 import classes from './project-list.module.scss';
 
-export default class ProjectList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      projects: []
-    };
-  }
-  async componentDidMount() {
-    this.setState({ loading: true });
-    try {
-      const { data } = await ProjectService.fetchProjectsAsync();
-      this.setState({ projects: data });
-    } catch (error) {
-      console.log('Error while fetching projects: ', error);
-    } finally {
-      this.setState({ loading: false });
-    }
-  }
+const ProjectList = () => {
+  const [projects, setProjects] = useState({
+    loading: true,
+    items: [],
+    error: ''
+  });
 
-  render() {
-    return (
-      <Fragment>
-        {this.state.loading ? <div>Loading...</div> : null}
-        <div className={classes.project_list}>
-          {this.state.projects.length && !this.state.loading
-            ? this.state.projects.map(project => <Project key={project.id} project={project} />)
-            : null}
-        </div>
-      </Fragment>
-    );
-  }
-}
+  useEffect(() => {
+    const loadProjects = async () => {
+      try {
+        const { data } = await ProjectService.fetchProjectsAsync();
+        setProjects({ projects: data, loading: false, error: '' });
+      } catch (error) {
+        setProjects({ projects: [], loading: false, error: 'Project list was not loaded correcctly!' });
+      }
+    };
+    loadProjects();
+  }, []);
+
+  return (
+    <div style={{ paddingTop: '96px' }}>
+      <Typography>Loading...</Typography>
+      <div className={classes.project_list}>{projects.length && !projects.loading ? projects.map(project => <Project key={project.id} project={project} />) : null}</div>
+    </div>
+  );
+};
+
+export default ProjectList;
