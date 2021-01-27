@@ -1,0 +1,23 @@
+{
+  "extends": ["react-app"],
+  "rules": {
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "for-direction": "error",
+    "getter-return": "error",
+    "no-async-promise-executor": "error",
+    "no-await-in-loop": "error",
+    "no-compare-neg-zero": "error",
+    "no-cond-assign": "error",
+    "no-console": "warn",
+
+    "quote-props": ["error", "as-needed"],
+    "linebreak-style": ["error", "unix"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "eol-last": ["error", "always"],
+    "no-trailing-spaces": "error",
+    "semi-style": ["error", "last"],
+    "no-tabs": "error"
+  }
+}
