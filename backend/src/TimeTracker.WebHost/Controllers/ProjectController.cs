@@ -18,8 +18,7 @@ namespace TimeTracker.WebHost.Controllers
             return Ok(new { id = result });
         }
 
-        [HttpPost]
-        [Route("list")]
+        [HttpGet]
         public async Task<IActionResult> List()
         {
             // TODO: Add SmartListParams
