@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 export class ProjectService {
-  static fetchProjectsAsync() {
+  static fetchProjects() {
     return axios({
-      method: 'POST',
-      url: '/api/projects/list'
+      method: 'GET',
+      url: '/api/projects'
     });
   }
 
