@@ -5,8 +5,9 @@ import Header from '../components/header';
 const RootPage = () => {
   return (
     <>
-      <Header />
-      <ProjectList />
+      <Header>
+        <ProjectList />
+      </Header>
     </>
   );
 };

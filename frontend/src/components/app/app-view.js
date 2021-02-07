@@ -19,19 +19,6 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
-    try {
-      const result = await this._projectService.fetchProjects();
-      this.setState({
-        loading: false,
-        items: result.data
-      });
-      console.log(result.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   handleInputChange({ target: { name, value } }) {
     this.setState(s => ({
       ...s,
